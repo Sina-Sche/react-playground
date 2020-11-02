@@ -6,9 +6,9 @@
  * At a length of around 10 it should become green
  * It should never become blue, so stop at green
  */
-import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
+import React, { useEffect, useState } from 'react';
 
 function getHue(passwordLength = 0) {
   return Math.min(passwordLength * 10, 100);

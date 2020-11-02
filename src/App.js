@@ -1,6 +1,14 @@
-import styled, { keyframes } from 'styled-components/macro';
+import styled, { keyframes, ThemeProvider } from 'styled-components/macro';
+import { useState } from 'react';
 import GlobalStyle from './GlobalStyle';
 import logo from './logo.svg';
+
+// const Button = styled.button`
+//   background-color: blue;
+//   color: white;
+//   border: none;
+//   cursor: pointer;
+// `;
 
 const logoSpin = keyframes`
   from {
@@ -15,7 +23,7 @@ const Wrapper = styled.div`
   text-align: center;
 
   header {
-    background-color: #282c34;
+    background-color: ${(props) => props.theme.backgroundColor};
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -38,13 +46,29 @@ const Wrapper = styled.div`
 `;
 
 const Link = styled.a`
-  color: #61dafb;
+  color: ${(props) => props.theme.primaryColor};
 `;
+const ugly = {
+  primaryColor: 'rebeccapurple',
+  backgroundColor: 'hotpink',
+};
+const notsougly = {
+  primaryColor: 'white',
+  backgroundColor: 'black',
+};
 
 function App() {
+  const [theme, setTheme] = useState(ugly);
+
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <GlobalStyle />
+      <button
+        type="button"
+        onClick={() => setTheme(theme === ugly ? notsougly : ugly)}
+      >
+        Click Me
+      </button>
       <Wrapper>
         <header>
           <img src={logo} alt="logo" />
@@ -62,7 +86,7 @@ function App() {
           </Link>
         </header>
       </Wrapper>
-    </>
+    </ThemeProvider>
   );
 }
 
